@@ -7,9 +7,13 @@
 
 <script>
 
-    console.log("Computer chooses: " + computerPlay());
+    playGame();
 
-    console.log("Player chooses: " + playerPlay());
+    // console.log("Computer chooses: " + computerPlay());
+
+    // console.log("Player chooses: " + playerPlay());
+
+    // console.log(playRound(playerPlay(), computerPlay()));
 
     // Function to allow computer to randomly select between rock, paper, or scissors
   function computerPlay() {
@@ -27,8 +31,7 @@
     }
   };
 
-  
-  
+    
   // Function to convert player's input into lower case for future comparison
   function playerPlay() {
 
@@ -46,5 +49,100 @@
       return "Not a valid option!"
     }
   };
+
+  // Function to play 1 round of RPS (Rock Paper Scissors)
+  function playRound(playerSelection, computerSelection) {
+
+    console.log("Computer Chooses: " + computerSelection);
+    console.log("Player Chooses: " + playerSelection);
+
+    // Player doesn't input one of the 3 required choices
+    if (playerSelection == "Not a valid option!") {
+      return "Redo";
+    }
+
+    if (playerSelection == computerSelection) {
+      return "Tie";
+    }
+
+    // Rock beats Scissors
+    // -------------------
+
+    // Player Wins
+    if (playerSelection == "rock" && computerSelection == "scissors") {
+      return "playerWins";
+    // Computer Wins  
+    } else if (playerSelection == "scissors" && computerSelection == "rock") {
+      // computerWins = true;
+      return "computerWins";
+    }
+
+    // Scissors beats Paper
+    // -------------------
+
+    // Player Wins
+    if (playerSelection == "scissors" && computerSelection == "paper") {
+      // playerWins = true;
+      return "playerWins";
+    // Computer Wins  
+    } else if (playerSelection == "paper" && computerSelection == "scissors") {
+      // computerWins = true;
+      return "computerWins";
+    }
+
+    // Paper beats Rock
+    // -------------------
+
+    // Player Wins
+    if (playerSelection == "paper" && computerSelection == "rock") {
+      // playerWins = true;
+      return "playerWins";
+    // Computer Wins  
+    } else if (playerSelection == "rock" && computerSelection == "paper") {
+      // computerWins = true;
+      return "computerWins";
+    }
+
+  }
+
+  // Plays 5 Full Games
+  function playGame() {
+    let computerScore = 0;
+    let playerScore = 0;
+    let gamesPlayed = 0;
+    
+    // Play games until we reach 5 rounds
+
+    for (i = 0; i < 5; i++) {
+      let whoWins = playRound(playerPlay(), computerPlay());
+      if (whoWins == "Redo") {
+        console.log("Invalid Entry by Human Player! Redo the Round!");
+        i--
+        gamesPlayed--;
+      } else if (whoWins == "playerWins") {
+        console.log("The Human Wins!");
+        playerScore++;
+      } else if (whoWins == "computerWins") {
+        console.log("The Robot Wins!");
+        computerScore++;
+      } else if (whoWins == "Tie") {
+        console.log("It's a tie!");
+      }
+
+      gamesPlayed++;
+      console.log("Computer Score: " + computerScore);
+      console.log("Player Score: " + playerScore);
+      console.log("Games Played: " + gamesPlayed);
+    }
+
+    // After 5 Rounds Played
+    if (computerScore > playerScore) {
+      console.log("Computer Wins the Game!");
+    } else if (computerScore < playerScore) {
+      console.log("Human Wins the Game!");
+    } else {
+      console.log("Oh no. It's a tie");
+    }
+  }
   
 </script>
