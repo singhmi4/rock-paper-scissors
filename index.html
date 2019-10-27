@@ -1,13 +1,22 @@
 <!doctype html>
 </html>
 
+<body>
+  
+</body>
+
 <script>
 
-//   Function to allow computer to randomly select between rock, paper, or scissors
-  let computerPlay = () => {
+    console.log("Computer chooses: " + computerPlay());
+
+    console.log("Player chooses: " + playerPlay());
+
+    // Function to allow computer to randomly select between rock, paper, or scissors
+  function computerPlay() {
     // Generates the random integer between 0, 1, or 2
     let randomInt = Math.floor(Math.random() * Math.floor(3));
 
+    // Chooses between rock, paper, or scissors
     switch (randomInt) {
     case 0:
       return "rock";
@@ -18,5 +27,24 @@
     }
   };
 
-  console.log(computerPlay());
+  
+  
+  // Function to convert player's input into lower case for future comparison
+  function playerPlay() {
+
+    // Variable to store player's input
+    let playerChoice = prompt("Rock, Paper, Scissors!?");
+
+    // Returns the player's choice if it is one of the 3 valid options!
+    if(playerChoice.toLowerCase() == "rock") {
+      return "rock";
+    } else if (playerChoice.toLowerCase() == "paper") {
+      return "paper";
+    } else if (playerChoice.toLowerCase() == "scissors")
+       return "scissors";
+    else {
+      return "Not a valid option!"
+    }
+  };
+  
 </script>
