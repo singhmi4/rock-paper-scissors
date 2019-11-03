@@ -1,0 +1,238 @@
+<!doctype html>
+</html>
+
+<body>
+  <h1>
+    ROCK, PAPER, SCISSORS: BATTLE ROYALE
+    </h1>
+    <div id="container">
+      <div id="choices">
+          <button id="rock">Rock</button>
+          <button id="paper">Paper</button>
+          <button id="scissors">Scissors</button>
+      </div>
+      <div id="results">
+        <p>Player Score: <span id = "player-score"></span></p>
+        <p>Computer Score: <span id = "computer-score"></span></p>
+      </div>
+    </div>
+</body>
+
+<script>
+
+    let playerScore = 0;
+    let computerScore = 0;
+
+    // DOM Manipulation
+    // ----------------
+    
+    // Player Selection Buttons
+    const buttons = document.querySelectorAll('button');
+
+    // Select Results node
+    const results = document.querySelector('#results');
+
+    // Select Player Score Span
+    const playerScoreText = document.querySelector('#player-score');
+
+    // Show Current Player Score
+    playerScoreText.textContent = playerScore;
+
+    // Select Computer Score Span
+    const computerScoreText = document.querySelector('#computer-score');
+
+    // Show Current Player Score
+    computerScoreText.textContent = computerScore;
+
+    // Winner Element
+    const winner = document.createElement('h3');
+
+
+    buttons.forEach((button) => {
+
+      // Click Listener
+      button.addEventListener('click', (e) => {
+        // console.log(e);
+
+        // Plays game with rock, paper, scissors button pressed
+        let result = playRound(button.id, computerPlay());
+        
+        // Track Score
+        
+          if (result == "playerWins") {
+            playerScore++;
+            playerScoreText.textContent = playerScore;
+            console.log("Player Score: " + playerScore);
+            console.log("Computer Score: " + computerScore);
+          } else if (result == "computerWins") {
+            computerScore++;
+            computerScoreText.textContent = computerScore;
+            console.log("Player Score: " + playerScore);
+            console.log("Computer Score: " + computerScore);
+          } else if (result == "Tie") {
+            console.log("Player Score: " + playerScore);
+            console.log("Computer Score: " + computerScore);
+          }
+        
+
+        // Announce Winner
+        if (computerScore == '5' || playerScore == '5') {
+          if (computerScore > playerScore) {
+            winner.textContent = "Computer Wins";
+            results.appendChild(winner);
+            this.disabled = true;
+          } else {
+            winner.textContent ="Player Wins!";
+            results.appendChild(winner);
+            this.disabled = true;
+          }
+        }
+        
+      });
+
+    });
+
+
+    // Game Logic
+
+    // playGame();
+
+    // console.log("Computer chooses: " + computerPlay());
+
+    // console.log("Player chooses: " + playerPlay());
+
+    // console.log(playRound(playerPlay(), computerPlay()));
+
+    // Function to allow computer to randomly select between rock, paper, or scissors
+  function computerPlay() {
+    // Generates the random integer between 0, 1, or 2
+    let randomInt = Math.floor(Math.random() * Math.floor(3));
+
+    // Chooses between rock, paper, or scissors
+    switch (randomInt) {
+    case 0:
+      return "rock";
+    case 1:
+      return "paper";
+    case 2:
+      return "scissors";
+    }
+  };
+
+    
+  // Function to convert player's button input into lower case for future comparison
+  function playerPlay(choice) {
+
+    // Variable to store player's input
+    let playerChoice = choice;
+
+    // Returns the player's choice if it is one of the 3 valid options!
+    if(playerChoice == "rock") {
+      return "rock";
+    } else if (playerChoice == "paper") {
+      return "paper";
+    } else if (playerChoice == "scissors") {
+      return "scissors";
+    } else {
+      console.log("Not a valid option!");
+      return "Not a valid option!"
+    }
+  };
+
+  // Function to play 1 round of RPS (Rock Paper Scissors)
+  function playRound(playerSelection, computerSelection) {
+
+    console.log("Computer Chooses: " + computerSelection);
+    console.log("Player Chooses: " + playerSelection);
+
+    // Player doesn't input one of the 3 required choices
+    if (playerSelection == "Not a valid option!") {
+      return "Redo";
+    }
+
+    if (playerSelection == computerSelection) {
+      return "Tie";
+    }
+
+    // Rock beats Scissors
+    // -------------------
+
+    // Player Wins
+    if (playerSelection == "rock" && computerSelection == "scissors") {
+      return "playerWins";
+    // Computer Wins  
+    } else if (playerSelection == "scissors" && computerSelection == "rock") {
+      // computerWins = true;
+      return "computerWins";
+    }
+
+    // Scissors beats Paper
+    // -------------------
+
+    // Player Wins
+    if (playerSelection == "scissors" && computerSelection == "paper") {
+      // playerWins = true;
+      return "playerWins";
+    // Computer Wins  
+    } else if (playerSelection == "paper" && computerSelection == "scissors") {
+      // computerWins = true;
+      return "computerWins";
+    }
+
+    // Paper beats Rock
+    // -------------------
+
+    // Player Wins
+    if (playerSelection == "paper" && computerSelection == "rock") {
+      // playerWins = true;
+      return "playerWins";
+    // Computer Wins  
+    } else if (playerSelection == "rock" && computerSelection == "paper") {
+      // computerWins = true;
+      return "computerWins";
+    }
+
+  }
+
+  function trackScore(result) {
+
+
+  }
+
+  function playGame(playerChoice) {
+    let computerScore = 0;
+    let playerScore = 0;
+    let gamesPlayed = 0;
+    
+    // Play games until a score of 5 is reached
+
+      let whoWins = playRound(playerPlay(playerChoice), computerPlay());
+      if (whoWins == "Redo") {
+        console.log("Invalid Entry by Human Player! Redo the Round!");
+        gamesPlayed--;
+      } else if (whoWins == "playerWins") {
+        console.log("The Human Wins!");
+        playerScore++;
+      } else if (whoWins == "computerWins") {
+        console.log("The Robot Wins!");
+        computerScore++;
+      } else if (whoWins == "Tie") {
+        console.log("It's a tie!");
+      }
+
+      gamesPlayed++;
+      console.log("Computer Score: " + computerScore);
+      console.log("Player Score: " + playerScore);
+      console.log("Games Played: " + gamesPlayed);
+
+    // After 5 Rounds Played
+    if (computerScore > playerScore) {
+      console.log("Computer Wins the Game!");
+    } else if (computerScore < playerScore) {
+      console.log("Human Wins the Game!");
+    } else {
+      console.log("Oh no. It's a tie");
+    }
+  }
+  
+</script>
